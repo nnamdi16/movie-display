@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import MovieList from './MovieList';
+import MovieDetails from './MovieDetails';
 // import axios from 'axios';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 // import apiPlaceholder from './apiPlaceholder';
@@ -34,17 +35,17 @@ const App = () => (
 			</header>
 			<Switch>
 				<Route exact path="/" component={MovieList} />
-				<Route path="/:id" component={Test} />
+				<Route path="/:id" component={MovieDetails} />
 			</Switch>
 		</div>
 	</Router>
 );
 
-const Test = ({ match }) => (
-	<div>
-		<h1>{match.params.id}</h1>
-	</div>
-);
+// const Test = ({ match }) => (
+// 	<div>
+// 		<h1>{match.params.id}</h1>
+// 	</div>
+// );
 
 // class App extends Component {
 // 	// state = {
@@ -186,5 +187,6 @@ export default App;
  * ComponentDidCatch for handling errors
  * 
  * 
- * Ref is used to access DOM elements - A reference to a DOM element - Taking a DOM element anassigning it to a property.
+ * Ref is used to access DOM elements - A reference to a DOM element - Taking a DOM element and assigning it to a property.
+ * Style component way to style your application in a component based way
  */
