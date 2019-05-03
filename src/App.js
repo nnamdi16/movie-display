@@ -185,8 +185,7 @@ export default App;
  * ComponentDidUpdate invoked after an update or re-render occurs
  * ComponentWillUnMount invoked before a component is removed or destroyed from a react hierarchy - Mounting
  * ComponentDidCatch for handling errors
- * 
- * 
  * Ref is used to access DOM elements - A reference to a DOM element - Taking a DOM element and assigning it to a property.
  * Style component way to style your application in a component based way
- */
+ * A pure component is basically one that only renders when a first level prop has been changed,it only renders when the state has changed or the props coming in has changed
+*/

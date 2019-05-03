@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 // import Movie from './Movies';
 import axios from 'axios';
+import styled from 'styled-components';
+import { Poster } from './Movies';
+import Overdrive from 'react-overdrive';
 
 const POSTER_PATH = 'http://image.tmdb.org/t/p/w154';
 
@@ -29,15 +32,43 @@ class MovieDetails extends Component {
 		const { movie } = this.state;
 		console.log(this.state.movies);
 		return (
-			<div className="App">
-				<img src={`${BACKDROP_PATH}${movie.backdrop_path}`} alt="{movie.title}" />
-				<img src={`${POSTER_PATH}${movie.poster_path}`} alt="{movie.title}" />
-				<h1>{movie.title}</h1>
-				<h3>{movie.release_date}</h3>
-				<p>{movie.overview}</p>
-			</div>
+			<MovieWrapper backdrop={`${BACKDROP_PATH}${movie.backdrop_path}`}>
+				<MovieInfo>
+					<Overdrive id={movie.id}>
+						<Poster src={`${POSTER_PATH}${movie.poster_path}`} alt="{movie.title}" />
+					</Overdrive>
+					<div>
+						<h1>{movie.title}</h1>
+						<h3>{movie.release_date}</h3>
+						<p>{movie.overview}</p>
+					</div>
+				</MovieInfo>
+			</MovieWrapper>
 		);
 	}
 }
 
 export default MovieDetails;
+
+const MovieWrapper = styled.div`
+	position: relative;
+	padding-top: 50vh;
+	background: url(${props => props.backdrop}) no-repeat;
+	background-size: cover;
+`;
+
+const MovieInfo = styled.div`
+	background: white;
+	text-align: left;
+	padding: 2rem 10%;
+	display: flex;
+
+	> div {
+		margin-left: 20px;
+	}
+
+	img {
+		position: relative;
+		top: -5rem;
+	}
+`;
