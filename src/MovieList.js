@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Movie from './Movies';
 import axios from 'axios';
+import styled from 'styled-components';
 
 class MovieList extends Component {
 	state = {
@@ -23,11 +24,18 @@ class MovieList extends Component {
 	render() {
 		console.log(this.state.movies);
 		return (
-			<div className="App">
-				{this.state.movies.map(movie => <Movie key={movie.id} movie={movie} overview={movie.overview} />)}
-			</div>
+			<MovieGrid>
+				{this.state.movies.map(movie => <Movie key={movie.id} movie={movie} />)}
+				{/* {this.state.movies.map(movie => <Movie key={movie.id} movie={movie} overview={movie.overview} />)} */}
+			</MovieGrid>
 		);
 	}
 }
 
 export default MovieList;
+const MovieGrid = styled.div`
+	display: grid;
+	padding: 1rem;
+	grid-template-columns: repeat(6, 1fr);
+	grid-row-gap: 1rem;
+`;
