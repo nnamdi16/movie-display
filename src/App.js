@@ -6,12 +6,12 @@ import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
-import MovieList from './MovieList';
-import MovieDetails from './MovieDetails';
+import MovieList from './movies/MovieList';
+import MovieDetails from './movies/MovieDetails';
 // import axios from 'axios';
 import rootReducer from './rootReducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import Toggle from './Toggle';
+import Toggle from './toggle/Toggle';
 
 // import apiPlaceholder from './apiPlaceholder';
 
