@@ -1,39 +1,39 @@
 import React, { PureComponent } from 'react';
-import Movie from '../movies/Movies';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import Movie from '../movies/Movies';
 import styled from 'styled-components';
-import { getMovies } from '../movies/actions';
+import { getMovies } from './actions';
 
 class MovieList extends PureComponent {
-	state = {
-		movies: []
-	};
-	async componentDidMount() {
-		try {
-			const response = await axios.get(
-				'https://api.themoviedb.org/3/discover/movie?api_key=6274c1c8045c07d02c232749ff8562ba&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1'
-			);
-			this.setState({
-				movies: response.data.results
-			});
-			console.log(response.data.results);
-		} catch (error) {
-			console.log(error);
-		}
+	componentDidMount() {
+		const { getMovies, isLoaded } = this.props;
+		!isLoaded ? getMovies() : null;
 	}
 
 	render() {
-		console.log(this.state.movies);
+		// console.log(this.state.movies);
+		const { movies, isLoaded } = this.props;
 		return (
 			<MovieGrid>
-				{this.state.movies.map(movie => <Movie key={movie.id} movie={movie} />)}
+				{movies.map(movie => <Movie key={movie.id} movie={movie} />)}
 				{/* {this.state.movies.map(movie => <Movie key={movie.id} movie={movie} overview={movie.overview} />)} */}
 			</MovieGrid>
 		);
 	}
 }
 
-export default MovieList;
+const mapStateToProps = state => {
+	return {
+		movies: state.movies.movies,
+		isLoaded: state.movies.moviesLoaded
+	};
+};
+
+const mapDispatchToProps = dispatch => bindActionCreators({ getMovies }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(MovieList);
 const MovieGrid = styled.div`
 	display: grid;
 	padding: 1rem;
