@@ -1,10 +1,18 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import MovieList from './MovieList';
-import MovieDetails from './MovieDetails';
-// import axios from 'axios';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
+import MovieList from './movies/MovieList';
+import MovieDetails from './movies/MovieDetails';
+// import axios from 'axios';
+import rootReducer from './rootReducer';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import Toggle from './toggle/Toggle';
+
 // import apiPlaceholder from './apiPlaceholder';
 
 // const welcome = 'Welcome to React';
@@ -24,21 +32,28 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 // 		title: '24 Movies'
 // 	}
 // ];
+
+// const hello = () => 'hello';
+const middleware = [logger, thunk];
+const store = createStore(rootReducer, {}, composeWithDevTools(applyMiddleware(...middleware)));
 const App = () => (
-	<Router>
-		<div className="App">
-			<header className="App-header">
-				<Link to="/">
-					<img src={logo} className="App-logo" alt="logo" />
-				</Link>
-				{/* <Welcome text="Welcome to my World" /> */}
-			</header>
-			<Switch>
-				<Route exact path="/" component={MovieList} />
-				<Route path="/:id" component={MovieDetails} />
-			</Switch>
-		</div>
-	</Router>
+	<Provider store={store}>
+		<Router>
+			<div className="App">
+				<header className="App-header">
+					<Link to="/">
+						<img src={logo} className="App-logo" alt="logo" />
+					</Link>
+					{/* <Welcome text="Welcome to my World" /> */}
+				</header>
+				<Toggle />
+				<Switch>
+					<Route exact path="/" component={MovieList} />
+					<Route path="/:id" component={MovieDetails} />
+				</Switch>
+			</div>
+		</Router>
+	</Provider>
 );
 
 // const Test = ({ match }) => (
@@ -182,10 +197,17 @@ export default App;
  * ComponentWillReceiveProps is invoked before a mounted component will receive props - Updating
  * ShouldComponentUpdate takes next props and next state and compares them with next  and present state and potentially decides whether we want to update the component control over whether the component will update.
  * ComponentWillUpdate invoked anytime a component is about update
- * ComponentDidUpdate invoked after an update or re-render occurs
+ * ComponentDidUpdate invoked after an update or re-render occurs            
  * ComponentWillUnMount invoked before a component is removed or destroyed from a react hierarchy - Mounting
  * ComponentDidCatch for handling errors
  * Ref is used to access DOM elements - A reference to a DOM element - Taking a DOM element and assigning it to a property.
  * Style component way to style your application in a component based way
  * A pure component is basically one that only renders when a first level prop has been changed,it only renders when the state has changed or the props coming in has changed
+ * Provider makes redux to b available in your application via connect
+ * Connect grabs props value and dispatches action. It allows you to access your store from any given component.
+ * mapStateToProps accepts state as an argument and returns an object, takes our state and map it to the props which gets passed into the component.
+ * Dispatch is a function that accepts an object 
+ * Mapping our togglemessage function to dispatch inside our connect statement like mapStateToProps 
+ * bindActionCreators binds the reducer to dispatch signifying that we no longer need to call it with dispatch.
+ * A thunk is a function that returns a function. It allows us to return a function from an action
 */

@@ -8,9 +8,18 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-overdrive": "0.0.10",
+    "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "react-scripts": "1.0.14",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
     "styled-components": "^4.2.0"
+  },
+  "engines": {
+    "npm": "6.9.0",
+    "node": "10.15.0"
   },
   "scripts": {
     "start": "react-scripts start",

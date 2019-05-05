@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import Movie from './Movies';
 import axios from 'axios';
 import styled from 'styled-components';
-import { Poster } from './Movies';
+import { Poster } from '../movies/Movies';
 import Overdrive from 'react-overdrive';
 
 const POSTER_PATH = 'http://image.tmdb.org/t/p/w154';
