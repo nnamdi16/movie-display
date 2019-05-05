@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { toggleMessage } from './actions';
-import { getMovies } from '../movies/actions';
+
 const Toggle = ({ messageVisibility, toggleMessage }) => (
 	<div>
 		{messageVisibility && <p>You will be seeing this if redux is toggled</p>}

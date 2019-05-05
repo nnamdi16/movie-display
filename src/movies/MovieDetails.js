@@ -1,36 +1,29 @@
 import React, { Component } from 'react';
 // import Movie from './Movies';
-import axios from 'axios';
 import styled from 'styled-components';
 import { Poster } from '../movies/Movies';
 import Overdrive from 'react-overdrive';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getMovie, resetMovie } from './actions';
 
 const POSTER_PATH = 'http://image.tmdb.org/t/p/w154';
 
 const BACKDROP_PATH = 'http://image.tmdb.org/t/p/w1280';
 class MovieDetails extends Component {
-	state = {
-		movie: {}
-	};
-	async componentDidMount() {
-		try {
-			const response = await axios.get(
-				`https://api.themoviedb.org/3/movie/${this.props.match.params
-					.id}?api_key=6274c1c8045c07d02c232749ff8562ba&language=en-US`
-			);
-			const movie = response.data;
-			this.setState({
-				movie
-			});
-			// console.log(response.data.results);
-		} catch (error) {
-			console.log(error);
-		}
+	componentDidMount() {
+		const { getMovie, match } = this.props;
+		// !isLoaded ? getMovies() : null;
+		getMovie(match.params.id);
+	}
+
+	componentWillUnmount() {
+		this.props.resetMovie();
 	}
 
 	render() {
-		const { movie } = this.state;
-		console.log(this.state.movies);
+		const { movie } = this.props;
+		// console.log(this.state.movies);
 		return (
 			<MovieWrapper backdrop={`${BACKDROP_PATH}${movie.backdrop_path}`}>
 				<MovieInfo>
@@ -48,7 +41,16 @@ class MovieDetails extends Component {
 	}
 }
 
-export default MovieDetails;
+const mapStateToProps = state => {
+	return {
+		movie: state.movies.movie,
+		isLoaded: state.movies.movieLoaded
+	};
+};
+
+const mapDispatchToProps = dispatch => bindActionCreators({ getMovie, resetMovie }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(MovieDetails);
 
 const MovieWrapper = styled.div`
 	position: relative;

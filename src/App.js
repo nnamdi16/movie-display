@@ -6,6 +6,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
+import { save, load } from 'redux-localstorage-simple';
 import MovieList from './movies/MovieList';
 import MovieDetails from './movies/MovieDetails';
 // import axios from 'axios';
@@ -35,13 +36,14 @@ import Toggle from './toggle/Toggle';
 
 // const hello = () => 'hello';
 const middleware = [logger, thunk];
-const store = createStore(rootReducer, {}, composeWithDevTools(applyMiddleware(...middleware)));
+const store = createStore(rootReducer, load(), composeWithDevTools(applyMiddleware(...middleware, save())));
 const App = () => (
 	<Provider store={store}>
 		<Router>
 			<div className="App">
 				<header className="App-header">
 					<Link to="/">
+						{/* MOVIEWORLD */}
 						<img src={logo} className="App-logo" alt="logo" />
 					</Link>
 					{/* <Welcome text="Welcome to my World" /> */}
